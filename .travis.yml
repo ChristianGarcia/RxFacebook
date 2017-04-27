@@ -1,0 +1,34 @@
+language: android
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-25.0.2
+
+jdk:
+  - oraclejdk8
+
+script:
+  - ./gradlew build
+
+after_success:
+- .buildscript/deploy_snapshot.sh
+
+env:
+  global:
+  - secure: "vQroDOBL9NcMsKswX5wRgugqpcVqYVw0DrfXtdXRoaN0I6zJgEjCSUQ9hZYsJTook/V7z/QhCnGPBMlB8A2k5pmBhjOCZvvN/Iqobd2N530AX8DlHuAs2yCyDEHfOohJV7KvKNLQJToohfxSjR0257OygdO6fcS0h7ouDMhjrh9JI/LkR8SdWm1OITPWtEPD8wjLtCn6ozQ4gh360svNUesFWaNhNKX11b3fappVGM4EHln9WP8wzc98LvKbjiXvq1bzZc+hYmobqyb1n5NzkXPTkv8wcxQYUsphGuSHf4Mama9nxDNtFkBssNvGB+cy83bpvxrxDx2Z3l1rqnvRHt4TYbQpX9Iysz/ubNQ/TprB+lvNvgWo33eqN1Zt6t1Erdw3k1zhMdeThKMJJvJYilYyOTADtOSIJogSpEFEf6aW3E9eQXcBhfR9/UVxQv2cBwYlhavm4zLkvPumTAYXWEUa0g3S38cukcEU4tZLCaX8x92lDdpOg7/+oL5y41WXT1WvNNb3NY6lFzHIGHAH/3vuoKWbj3q+vwHc85b62lvCqLjv/JeVsLCaE1lNIw+i0og/wgULD4dqmGZPe2WkyLffW4QhEx/n0p2exLyk/b2yrq+FKPPrwHUWFg+RgPqCPnCKvH3uMbWxfneouGUhy3ytBOyioP8VmjTE6siijHg="
+  - secure: "No2ZTj1WZ9XfK8oUX+dIYKpkkrXuKdlQN1js130yp5TugqqdwchRQ7r0KbAgCrs5Ry/PK44GRif+qCjysbexoD6s9YjY+Mx3QX38GQDKdDIZ2opHnJRyvD+fqPoqBZuTNk8nQWhcvPK+EDpWj25AuLwaJaxd0g2iDKacpOpjNN9ve3M0AMx0ua8qNVIIH6zvdbDW/sgJddvMTAWuRsITmk76DHOS7OornqxlW8SMANyde6rCCj5OHML/5EyCOFt88Gh7oyqrV9BzY1SZGcc75Wyn1XmUe8FaTC6FItkl+NNe0apewUH97tLbrFBIvsSBQpzUbx/Q6SBal2j9liUmJO3laq2vJxveHvo7twKPpmroyMSvlDHznklL1bNJjznq9I/Jhf0BclcvfeZJWQFcx1bowJ/31LRiZXJzaoGUvEj3xIHMEhSU0rQjdaHrXvfznuSt+pVY5rqRBqrWfHxAOwrLK98ACdVqMi9oNsY7NCynJw7rtOtlfnL4plcgBkUdY0lYQCRlDol9ss6V3Xfom7pnla6EhYnVpBwOuYg6mCCb+bAEpIugbZAIvq2n/GdmyWOPKH25xxoKh0Pr5Jbvpf68iFMi0IKYoUJDHvIdonTenmniKViYMNMB56Evk5Tom9aTswvc5EUVdCyHLyIaGVBIt1aRHChwKXSQerFrnhM="
+
+branches:
+  except:
+    - gh-pages
+
+notifications:
+  email: false
+
+sudo: false
+
+cache:
+  directories:
+  - $HOME/.gradle
