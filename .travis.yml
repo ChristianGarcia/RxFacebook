@@ -15,7 +15,7 @@ script:
   - ./gradlew build
 
 after_success:
-- .buildscript/deploy_snapshot.sh
+  - .buildscript/deploy_snapshot.sh
 
 env:
   global:
