@@ -23,13 +23,6 @@
     android:layout_height="match_parent"
     >
 
-    <Button
-        android:id="@+id/facebookButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/facebook_button_text"
-        />
     <LinearLayout
         android:id="@+id/signedInView"
         android:layout_width="match_parent"
@@ -77,6 +70,13 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/facebookButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/facebook_button_text"
+        />
 
 
 </ViewAnimator>
