@@ -16,13 +16,16 @@
 
 package com.christiangp.rxfacebook;
 
+import com.facebook.login.LoginResult;
 import com.google.auto.value.AutoValue;
 
 @AutoValue
-public abstract class FacebookSignInResultCanceledEvent
-    extends FacebookSignInResultEvent {
+public abstract class LoginSuccessEvent
+    extends LoginResultEvent {
 
-    public static FacebookSignInResultCanceledEvent create() {
-        return new AutoValue_FacebookSignInResultCanceledEvent();
+    public static LoginResultEvent create(LoginResult loginResult) {
+        return new AutoValue_LoginSuccessEvent(loginResult);
     }
+
+    public abstract LoginResult loginResult();
 }

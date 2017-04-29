@@ -16,6 +16,13 @@
 
 package com.christiangp.rxfacebook;
 
-public abstract class FacebookSignInResultEvent {
+import com.google.auto.value.AutoValue;
 
+@AutoValue
+public abstract class LoginResultCanceledEvent
+    extends LoginResultEvent {
+
+    public static LoginResultCanceledEvent create() {
+        return new AutoValue_LoginResultCanceledEvent();
+    }
 }

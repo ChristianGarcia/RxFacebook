@@ -23,7 +23,8 @@ import io.reactivex.Observable;
 
 public final class RxFacebook {
 
-    public static Observable<FacebookSignInResultEvent> signIn(Activity activity, Collection<String> permissions) {
-        return new FacebookResultEventObservable(activity, permissions);
+    public static Observable<LoginResultEvent> signIn(Activity activity, Collection<String> permissions) {
+        return new LoginResultEventObservable(activity, permissions);
     }
+
 }

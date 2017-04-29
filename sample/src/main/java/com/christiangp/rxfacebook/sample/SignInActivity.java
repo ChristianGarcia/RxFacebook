@@ -24,9 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewAnimator;
 
-import com.christiangp.rxfacebook.FacebookSignInResultCanceledEvent;
-import com.christiangp.rxfacebook.FacebookSignInResultEvent;
-import com.christiangp.rxfacebook.FacebookSignInSuccessEvent;
+import com.christiangp.rxfacebook.LoginResultEvent;
+import com.christiangp.rxfacebook.LoginSuccessEvent;
+import com.christiangp.rxfacebook.LoginResultCanceledEvent;
 import com.christiangp.rxfacebook.RxFacebook;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginResult;
@@ -103,13 +103,13 @@ public class SignInActivity
         super.onDestroy();
     }
 
-    private static Result mapToResult(FacebookSignInResultEvent facebookSignInResultEvent) {
-        if (facebookSignInResultEvent instanceof FacebookSignInResultCanceledEvent) {
+    private static Result mapToResult(LoginResultEvent loginResultEvent) {
+        if (loginResultEvent instanceof LoginResultCanceledEvent) {
             return Result.Canceled.create();
-        } else if (facebookSignInResultEvent instanceof FacebookSignInSuccessEvent) {
-            return Result.Success.create(((FacebookSignInSuccessEvent) facebookSignInResultEvent).loginResult());
+        } else if (loginResultEvent instanceof LoginSuccessEvent) {
+            return Result.Success.create(((LoginSuccessEvent) loginResultEvent).loginResult());
         }
-        throw new IllegalArgumentException("Unsupported event: " + facebookSignInResultEvent.getClass());
+        throw new IllegalArgumentException("Unsupported event: " + loginResultEvent.getClass());
     }
 
     // Missing you here, Kotlin. :sigh:

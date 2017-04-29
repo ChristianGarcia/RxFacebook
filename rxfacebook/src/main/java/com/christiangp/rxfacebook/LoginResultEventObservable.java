@@ -37,8 +37,8 @@ import io.reactivex.android.MainThreadDisposable;
 
 import static com.christiangp.rxfacebook.internal.Preconditions.checkMainThread;
 
-final class FacebookResultEventObservable
-    extends Observable<FacebookSignInResultEvent> {
+final class LoginResultEventObservable
+    extends Observable<LoginResultEvent> {
 
     private static final String FRAGMENT_TAG = "RxFacebookFragment";
 
@@ -46,13 +46,13 @@ final class FacebookResultEventObservable
 
     private       Activity           activity;
 
-    public FacebookResultEventObservable(Activity activity, Collection<String> permissions) {
+    public LoginResultEventObservable(Activity activity, Collection<String> permissions) {
         this.activity = activity;
         this.permissions = permissions;
     }
 
     @Override
-    protected void subscribeActual(Observer<? super FacebookSignInResultEvent> observer) {
+    protected void subscribeActual(Observer<? super LoginResultEvent> observer) {
         if (!checkMainThread(observer)) {
             return;
         }
@@ -89,11 +89,11 @@ final class FacebookResultEventObservable
         extends MainThreadDisposable
         implements FacebookCallback<LoginResult> {
 
-        private final FacebookResultEventObservable               requester;
+        private final LoginResultEventObservable         requester;
 
-        private final Observer<? super FacebookSignInResultEvent> observer;
+        private final Observer<? super LoginResultEvent> observer;
 
-        public Listener(FacebookResultEventObservable requester, Observer<? super FacebookSignInResultEvent> observer) {
+        public Listener(LoginResultEventObservable requester, Observer<? super LoginResultEvent> observer) {
             this.requester = requester;
             this.observer = observer;
         }
@@ -101,7 +101,7 @@ final class FacebookResultEventObservable
         @Override
         public void onSuccess(LoginResult loginResult) {
             if (!isDisposed()) {
-                observer.onNext(FacebookSignInSuccessEvent.create(loginResult));
+                observer.onNext(LoginSuccessEvent.create(loginResult));
                 observer.onComplete();
             }
         }
@@ -109,7 +109,7 @@ final class FacebookResultEventObservable
         @Override
         public void onCancel() {
             if (!isDisposed()) {
-                observer.onNext(FacebookSignInResultCanceledEvent.create());
+                observer.onNext(LoginResultCanceledEvent.create());
                 observer.onComplete();
             }
         }
