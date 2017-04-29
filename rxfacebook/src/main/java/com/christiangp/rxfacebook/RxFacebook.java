@@ -17,11 +17,13 @@ package com.christiangp.rxfacebook;
 
 import android.app.Activity;
 
+import java.util.Collection;
+
 import io.reactivex.Observable;
 
 public final class RxFacebook {
 
-    public static Observable<FacebookSignInResultEvent> signIn(Activity activity) {
-        return new FacebookResultEventObservable(activity);
+    public static Observable<FacebookSignInResultEvent> signIn(Activity activity, Collection<String> permissions) {
+        return new FacebookResultEventObservable(activity, permissions);
     }
 }

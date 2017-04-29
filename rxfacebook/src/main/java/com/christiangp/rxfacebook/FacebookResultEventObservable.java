@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.facebook.CallbackManager;
@@ -27,7 +28,8 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -40,10 +42,13 @@ final class FacebookResultEventObservable
 
     private static final String FRAGMENT_TAG = "RxFacebookFragment";
 
-    private Activity activity;
+    private final Collection<String> permissions;
 
-    public FacebookResultEventObservable(Activity activity) {
+    private       Activity           activity;
+
+    public FacebookResultEventObservable(Activity activity, Collection<String> permissions) {
         this.activity = activity;
+        this.permissions = permissions;
     }
 
     @Override
@@ -61,7 +66,7 @@ final class FacebookResultEventObservable
                     .remove(rxFacebookFragment)
                     .commitAllowingStateLoss();
         }
-        rxFacebookFragment = RxFacebookFragment.newInstance();
+        rxFacebookFragment = RxFacebookFragment.newInstance(permissions);
         rxFacebookFragment.setFacebookCallbackManager(facebookCallbackManager);
         activity.getFragmentManager()
                 .beginTransaction()
@@ -125,10 +130,13 @@ final class FacebookResultEventObservable
     public static class RxFacebookFragment
         extends Fragment {
 
+        private static final String KEY_PERMISSIONS = "permissions";
+
         private CallbackManager facebookCallbackManager;
 
-        public static RxFacebookFragment newInstance() {
+        public static RxFacebookFragment newInstance(@NonNull Collection<String> permissions) {
             final Bundle args = new Bundle();
+            args.putStringArrayList(KEY_PERMISSIONS, new ArrayList<>(permissions));
 
             final RxFacebookFragment fragment = new RxFacebookFragment();
             fragment.setArguments(args);
@@ -140,7 +148,7 @@ final class FacebookResultEventObservable
             super.onCreate(savedInstanceState);
             setRetainInstance(true);
             LoginManager.getInstance()
-                        .logInWithReadPermissions(this, Collections.singletonList("public_profile"));
+                        .logInWithReadPermissions(this, getArguments().getStringArrayList(KEY_PERMISSIONS));
         }
 
         @Override
