@@ -19,9 +19,11 @@ buildscript {
     }
     dependencies {
         classpath rootProject.ext.androidPlugin
+        classpath rootProject.ext.retrolambdaPlugin
     }
 }
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -34,6 +36,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        resValue "string", "facebook_app_id", "1697222110581637"
+
     }
     buildTypes {
         release {
@@ -41,10 +45,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     compile project(':rxfacebook')
     compile rootProject.ext.supportAppCompat
     compile rootProject.ext.supportDesign
+
+    compile rootProject.ext.butterKnife
+    annotationProcessor rootProject.ext.butterKnifeCompiler
+
+    compile rootProject.ext.rxJava
+    compile rootProject.ext.rxBinding
+
+    annotationProcessor rootProject.ext.autoValue
+    provided rootProject.ext.autoValueAnnotations
+
 }

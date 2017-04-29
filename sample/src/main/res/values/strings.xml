@@ -16,4 +16,7 @@
 
 <resources>
     <string name="app_name">RxFacebook-sample</string>
+    <string name="facebook_button_text">Continue with Facebook</string>
+    <string name="user_id_label">User id</string>
+    <string name="access_token_label">Access token</string>
 </resources>
