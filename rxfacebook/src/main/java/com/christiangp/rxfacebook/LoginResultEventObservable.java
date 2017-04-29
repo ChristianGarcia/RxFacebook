@@ -35,8 +35,6 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-import static com.christiangp.rxfacebook.internal.Preconditions.checkMainThread;
-
 final class LoginResultEventObservable
     extends Observable<LoginResultEvent> {
 
@@ -46,16 +44,15 @@ final class LoginResultEventObservable
 
     private       Activity           activity;
 
-    public LoginResultEventObservable(Activity activity, Collection<String> permissions) {
+    LoginResultEventObservable(Activity activity, Collection<String> permissions) {
         this.activity = activity;
         this.permissions = permissions;
     }
 
     @Override
     protected void subscribeActual(Observer<? super LoginResultEvent> observer) {
-        if (!checkMainThread(observer)) {
-            return;
-        }
+        MainThreadDisposable.verifyMainThread();
+        
         final CallbackManager facebookCallbackManager = CallbackManager.Factory.create();
 
         RxFacebookFragment rxFacebookFragment = (RxFacebookFragment) activity.getFragmentManager()
@@ -85,7 +82,7 @@ final class LoginResultEventObservable
         activity = null;
     }
 
-    static class Listener
+    private static class Listener
         extends MainThreadDisposable
         implements FacebookCallback<LoginResult> {
 
@@ -93,7 +90,7 @@ final class LoginResultEventObservable
 
         private final Observer<? super LoginResultEvent> observer;
 
-        public Listener(LoginResultEventObservable requester, Observer<? super LoginResultEvent> observer) {
+        Listener(LoginResultEventObservable requester, Observer<? super LoginResultEvent> observer) {
             this.requester = requester;
             this.observer = observer;
         }
