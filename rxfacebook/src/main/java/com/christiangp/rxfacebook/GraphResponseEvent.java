@@ -15,22 +15,15 @@
  */
 package com.christiangp.rxfacebook;
 
-import android.app.Activity;
-import android.os.Bundle;
+import com.facebook.GraphResponse;
+import com.google.auto.value.AutoValue;
 
-import com.facebook.AccessToken;
+@AutoValue
+abstract class GraphResponseEvent {
 
-import java.util.Collection;
-
-import io.reactivex.Observable;
-
-public final class RxFacebook {
-
-    public static Observable<LoginResultEvent> signIn(Activity activity, Collection<String> permissions) {
-        return new LoginResultEventObservable(activity, permissions);
+    public static GraphResponseEvent create(GraphResponse graphResponse) {
+        return new AutoValue_GraphResponseEvent(graphResponse);
     }
 
-    public static Observable<GraphResponseEvent> meRequest(AccessToken accessToken, Bundle parameters) {
-        return new MeRequestEventObservable(accessToken, parameters);
-    }
+    abstract GraphResponse graphResponse();
 }

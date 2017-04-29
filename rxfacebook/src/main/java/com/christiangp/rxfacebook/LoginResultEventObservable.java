@@ -52,7 +52,7 @@ final class LoginResultEventObservable
     @Override
     protected void subscribeActual(Observer<? super LoginResultEvent> observer) {
         MainThreadDisposable.verifyMainThread();
-        
+
         final CallbackManager facebookCallbackManager = CallbackManager.Factory.create();
 
         RxFacebookFragment rxFacebookFragment = (RxFacebookFragment) activity.getFragmentManager()
