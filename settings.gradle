@@ -1,2 +1,2 @@
-rootProject.name='rxandroid-root'
-include ':rxfacebook'
+rootProject.name = 'rxfacebook-root'
+include ':rxfacebook', ':sample'
