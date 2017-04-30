@@ -28,7 +28,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
 class MeRequestEventObservable
-    extends Observable<GraphResponseEvent> {
+    extends Observable<GraphResponse> {
 
     private final AccessToken accessToken;
 
@@ -40,7 +40,7 @@ class MeRequestEventObservable
     }
 
     @Override
-    protected void subscribeActual(Observer<? super GraphResponseEvent> observer) {
+    protected void subscribeActual(Observer<? super GraphResponse> observer) {
         Listener listener = new Listener(observer);
         observer.onSubscribe(listener);
 
@@ -55,15 +55,15 @@ class MeRequestEventObservable
         extends MainThreadDisposable
         implements GraphRequest.GraphJSONObjectCallback {
 
-        private final Observer<? super GraphResponseEvent> observer;
+        private final Observer<? super GraphResponse> observer;
 
-        Listener(Observer<? super GraphResponseEvent> observer) {
+        Listener(Observer<? super GraphResponse> observer) {
             this.observer = observer;
         }
 
         @Override
         public void onCompleted(JSONObject object, GraphResponse response) {
-            observer.onNext(GraphResponseEvent.create(response));
+            observer.onNext(response);
             observer.onComplete();
         }
 

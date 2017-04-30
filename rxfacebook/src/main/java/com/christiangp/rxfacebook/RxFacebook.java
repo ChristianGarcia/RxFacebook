@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.facebook.AccessToken;
+import com.facebook.GraphResponse;
 
 import java.util.Collection;
 
@@ -30,7 +31,7 @@ public final class RxFacebook {
         return new LoginResultEventObservable(activity, permissions);
     }
 
-    public static Observable<GraphResponseEvent> meRequest(AccessToken accessToken, Bundle parameters) {
+    public static Observable<GraphResponse> meRequest(AccessToken accessToken, Bundle parameters) {
         return new MeRequestEventObservable(accessToken, parameters);
     }
 }
