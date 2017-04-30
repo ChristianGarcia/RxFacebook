@@ -27,7 +27,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-class MeRequestEventObservable
+final class MeRequestEventObservable
     extends Observable<GraphResponse> {
 
     private final AccessToken accessToken;
@@ -41,12 +41,10 @@ class MeRequestEventObservable
 
     @Override
     protected void subscribeActual(Observer<? super GraphResponse> observer) {
-        Listener listener = new Listener(observer);
+        final Listener listener = new Listener(observer);
         observer.onSubscribe(listener);
 
-        final GraphRequest request = GraphRequest.newMeRequest(
-            accessToken,
-            listener);
+        final GraphRequest request = GraphRequest.newMeRequest(accessToken, listener);
         request.setParameters(parameters);
         request.executeAsync();
     }

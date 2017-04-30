@@ -17,9 +17,12 @@ package com.christiangp.rxfacebook;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 
 import java.util.Collection;
 
@@ -27,15 +30,23 @@ import io.reactivex.Observable;
 
 public final class RxFacebook {
 
-    public static Observable<LoginResultEvent> signIn(Activity activity, Collection<String> permissions) {
+    @NonNull
+    public static Observable<LoginResultEvent> signIn(@NonNull Activity activity, @NonNull Collection<String> permissions) {
         return new LoginResultEventObservable(activity, permissions);
     }
 
-    public static Observable<GraphResponse> meRequest(AccessToken accessToken, Bundle parameters) {
+    @NonNull
+    public static Observable<GraphResponse> meRequest(@NonNull AccessToken accessToken, @NonNull Bundle parameters) {
         return new MeRequestEventObservable(accessToken, parameters);
     }
 
-    public static Observable<GraphResponse> graphGetRequest(AccessToken accessToken, String graphPath) {
-        return new GraphGetRequestObservable(accessToken, graphPath);
+    @NonNull
+    public static Observable<GraphResponse> graphRequest(
+        @NonNull AccessToken accessToken,
+        @NonNull String graphPath,
+        @Nullable Bundle parameters,
+        @NonNull HttpMethod httpMethod
+    ) {
+        return new GraphRequestObservable(accessToken, graphPath, parameters, httpMethod);
     }
 }
