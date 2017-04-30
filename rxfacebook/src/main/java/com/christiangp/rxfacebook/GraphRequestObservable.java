@@ -15,6 +15,8 @@
  */
 package com.christiangp.rxfacebook;
 
+import android.os.Bundle;
+
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -24,16 +26,27 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;
 
-class GraphGetRequestObservable
+final class GraphRequestObservable
     extends Observable<GraphResponse> {
 
     private final AccessToken accessToken;
 
     private final String      graphPath;
 
-    public GraphGetRequestObservable(AccessToken accessToken, String graphPath) {
+    private final Bundle      parameters;
+
+    private final HttpMethod  httpMethod;
+
+    GraphRequestObservable(
+        AccessToken accessToken,
+        String graphPath,
+        Bundle parameters,
+        HttpMethod httpMethod
+    ) {
         this.accessToken = accessToken;
         this.graphPath = graphPath;
+        this.parameters = parameters;
+        this.httpMethod = httpMethod;
     }
 
     @Override
@@ -44,11 +57,10 @@ class GraphGetRequestObservable
         new GraphRequest(
             accessToken,
             graphPath,
-            null,
-            HttpMethod.GET,
+            parameters,
+            httpMethod,
             listener
         ).executeAsync();
-
     }
 
     private static class Listener
