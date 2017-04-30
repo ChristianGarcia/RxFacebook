@@ -66,7 +66,7 @@ public class SignInActivity
             RxView.clicks(facebookButton)
                   .throttleLast(1, TimeUnit.SECONDS)
                   .observeOn(AndroidSchedulers.mainThread())
-                  .flatMap(__ -> RxFacebook.signIn(this, Arrays.asList("email")))
+                  .flatMap(__ -> RxFacebook.logIn(this, Arrays.asList("email")))
                   .map(SignInMapper::mapToResult)
                   .onErrorReturn(SignInResult.Failure::create)
                   .subscribe(

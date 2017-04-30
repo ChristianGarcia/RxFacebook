@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.christiangp.rxfacebook;
+
+import android.support.annotation.NonNull;
 
 import com.google.auto.value.AutoValue;
 
@@ -22,7 +23,8 @@ import com.google.auto.value.AutoValue;
 public abstract class LoginResultCanceledEvent
     extends LoginResultEvent {
 
-    public static LoginResultCanceledEvent create() {
+    @NonNull
+    static LoginResultCanceledEvent create() {
         return new AutoValue_LoginResultCanceledEvent();
     }
 }

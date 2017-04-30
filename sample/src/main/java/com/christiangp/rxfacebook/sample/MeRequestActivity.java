@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.christiangp.rxfacebook.RxFacebook;
 import com.facebook.AccessToken;
+import com.facebook.HttpMethod;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +42,7 @@ public class MeRequestActivity
         Bundle params = new Bundle();
         params.putString("fields", "id, birthday, first_name, gender, last_name, link, location, locale, name, timezone, updated_time, email");
 
-        RxFacebook.meRequest(AccessToken.getCurrentAccessToken(), params)
+        RxFacebook.graphRequest(AccessToken.getCurrentAccessToken(), "me", params, HttpMethod.GET)
                   .subscribe(graphResponse -> {
                       if (graphResponse.getError() != null) {
                           rawResponseView.setText(graphResponse.getError()

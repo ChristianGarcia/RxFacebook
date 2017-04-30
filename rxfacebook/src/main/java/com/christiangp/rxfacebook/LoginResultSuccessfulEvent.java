@@ -15,6 +15,8 @@
  */
 package com.christiangp.rxfacebook;
 
+import android.support.annotation.NonNull;
+
 import com.facebook.login.LoginResult;
 import com.google.auto.value.AutoValue;
 
@@ -22,6 +24,7 @@ import com.google.auto.value.AutoValue;
 public abstract class LoginResultSuccessfulEvent
     extends LoginResultEvent {
 
+    @NonNull
     static LoginResultEvent create(LoginResult loginResult) {
         return new AutoValue_LoginResultSuccessfulEvent(loginResult);
     }

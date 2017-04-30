@@ -30,14 +30,19 @@ import io.reactivex.Observable;
 
 public final class RxFacebook {
 
+    /**
+     * Create an observable which emits Facebook Login events. The emitted value is a subclass of {@link LoginResultEvent}
+     * <p>
+     * The Facebook Login process is executed on subscribing to this observable.
+     * <p>
+     * <b><i>WARNING</i></b>: The created observable keeps a strong reference to the given Activity. Unsubscribe to free this reference.
+     *
+     * @param activity    The host Activity.
+     * @param permissions The Facebook Login <a href="https://developers.facebook.com/docs/facebook-login/permissions">permissions</a> scope.
+     */
     @NonNull
-    public static Observable<LoginResultEvent> signIn(@NonNull Activity activity, @NonNull Collection<String> permissions) {
+    public static Observable<LoginResultEvent> logIn(@NonNull Activity activity, @NonNull Collection<String> permissions) {
         return new LoginResultEventObservable(activity, permissions);
-    }
-
-    @NonNull
-    public static Observable<GraphResponse> meRequest(@NonNull AccessToken accessToken, @NonNull Bundle parameters) {
-        return new MeRequestEventObservable(accessToken, parameters);
     }
 
     @NonNull
