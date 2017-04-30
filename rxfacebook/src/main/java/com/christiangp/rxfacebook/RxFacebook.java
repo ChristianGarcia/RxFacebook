@@ -34,4 +34,8 @@ public final class RxFacebook {
     public static Observable<GraphResponse> meRequest(AccessToken accessToken, Bundle parameters) {
         return new MeRequestEventObservable(accessToken, parameters);
     }
+
+    public static Observable<GraphResponse> graphGetRequest(AccessToken accessToken, String graphPath) {
+        return new GraphGetRequestObservable(accessToken, graphPath);
+    }
 }
