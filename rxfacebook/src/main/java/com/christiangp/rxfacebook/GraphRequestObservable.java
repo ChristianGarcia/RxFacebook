@@ -75,8 +75,10 @@ final class GraphRequestObservable
 
         @Override
         public void onCompleted(GraphResponse response) {
-            observer.onNext(response);
-            observer.onComplete();
+            if (!isDisposed()) {
+                observer.onNext(response);
+                observer.onComplete();
+            }
         }
 
         @Override

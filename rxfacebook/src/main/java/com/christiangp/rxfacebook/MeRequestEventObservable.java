@@ -61,8 +61,10 @@ final class MeRequestEventObservable
 
         @Override
         public void onCompleted(JSONObject object, GraphResponse response) {
-            observer.onNext(response);
-            observer.onComplete();
+            if (!isDisposed()) {
+                observer.onNext(response);
+                observer.onComplete();
+            }
         }
 
         @Override
