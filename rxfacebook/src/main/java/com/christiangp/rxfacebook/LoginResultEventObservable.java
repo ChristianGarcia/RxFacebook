@@ -98,7 +98,7 @@ final class LoginResultEventObservable
         @Override
         public void onSuccess(LoginResult loginResult) {
             if (!isDisposed()) {
-                observer.onNext(LoginSuccessEvent.create(loginResult));
+                observer.onNext(LoginResultSuccessfulEvent.create(loginResult));
                 observer.onComplete();
             }
         }

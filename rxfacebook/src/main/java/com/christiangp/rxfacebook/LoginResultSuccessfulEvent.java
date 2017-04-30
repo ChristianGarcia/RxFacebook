@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.christiangp.rxfacebook;
 
 import com.facebook.login.LoginResult;
 import com.google.auto.value.AutoValue;
 
 @AutoValue
-public abstract class LoginSuccessEvent
+public abstract class LoginResultSuccessfulEvent
     extends LoginResultEvent {
 
-    public static LoginResultEvent create(LoginResult loginResult) {
-        return new AutoValue_LoginSuccessEvent(loginResult);
+    static LoginResultEvent create(LoginResult loginResult) {
+        return new AutoValue_LoginResultSuccessfulEvent(loginResult);
     }
 
     public abstract LoginResult loginResult();

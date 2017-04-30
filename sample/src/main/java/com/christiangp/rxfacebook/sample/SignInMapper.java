@@ -17,15 +17,15 @@ package com.christiangp.rxfacebook.sample;
 
 import com.christiangp.rxfacebook.LoginResultCanceledEvent;
 import com.christiangp.rxfacebook.LoginResultEvent;
-import com.christiangp.rxfacebook.LoginSuccessEvent;
+import com.christiangp.rxfacebook.LoginResultSuccessfulEvent;
 
 class SignInMapper {
 
     static SignInResult mapToResult(LoginResultEvent loginResultEvent) {
         if (loginResultEvent instanceof LoginResultCanceledEvent) {
             return SignInResult.Canceled.create();
-        } else if (loginResultEvent instanceof LoginSuccessEvent) {
-            return SignInResult.Success.create(((LoginSuccessEvent) loginResultEvent).loginResult());
+        } else if (loginResultEvent instanceof LoginResultSuccessfulEvent) {
+            return SignInResult.Success.create(((LoginResultSuccessfulEvent) loginResultEvent).loginResult());
         }
         throw new IllegalArgumentException("Unsupported event: " + loginResultEvent.getClass());
     }
