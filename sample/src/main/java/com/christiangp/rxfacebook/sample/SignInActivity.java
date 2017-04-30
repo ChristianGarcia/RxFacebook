@@ -24,16 +24,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewAnimator;
 
-import com.christiangp.rxfacebook.LoginResultEvent;
-import com.christiangp.rxfacebook.LoginSuccessEvent;
-import com.christiangp.rxfacebook.LoginResultCanceledEvent;
 import com.christiangp.rxfacebook.RxFacebook;
 import com.facebook.AccessToken;
-import com.facebook.login.LoginResult;
-import com.google.auto.value.AutoValue;
 import com.jakewharton.rxbinding2.view.RxView;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -71,22 +66,22 @@ public class SignInActivity
             RxView.clicks(facebookButton)
                   .throttleLast(1, TimeUnit.SECONDS)
                   .observeOn(AndroidSchedulers.mainThread())
-                  .flatMap(__ -> RxFacebook.signIn(this, Collections.singletonList("public_profile")))
-                  .map(SignInActivity::mapToResult)
-                  .onErrorReturn(Result.Failure::create)
+                  .flatMap(__ -> RxFacebook.signIn(this, Arrays.asList("email")))
+                  .map(SignInMapper::mapToResult)
+                  .onErrorReturn(SignInResult.Failure::create)
                   .subscribe(
                       result -> {
-                          if (result instanceof Result.Canceled) {
+                          if (result instanceof SignInResult.Canceled) {
                               Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT)
                                    .show();
-                          } else if (result instanceof Result.Success) {
+                          } else if (result instanceof SignInResult.Success) {
                               contentAnimator.setDisplayedChild(contentAnimator.indexOfChild(signedInView));
-                              final AccessToken accessToken = ((Result.Success) result).loginResult()
-                                                                                       .getAccessToken();
+                              final AccessToken accessToken = ((SignInResult.Success) result).loginResult()
+                                                                                             .getAccessToken();
                               userIdView.setText(accessToken.getUserId());
                               accessTokenView.setText(accessToken.getToken());
-                          } else if (result instanceof Result.Failure) {
-                              final Result.Failure failure = (Result.Failure) result;
+                          } else if (result instanceof SignInResult.Failure) {
+                              final SignInResult.Failure failure = (SignInResult.Failure) result;
                               @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
                               final Throwable error = failure.error();
                               Toast.makeText(this, "Sign in failed:" + error.getLocalizedMessage(), Toast.LENGTH_SHORT)
@@ -101,49 +96,5 @@ public class SignInActivity
     protected void onDestroy() {
         disposables.dispose();
         super.onDestroy();
-    }
-
-    private static Result mapToResult(LoginResultEvent loginResultEvent) {
-        if (loginResultEvent instanceof LoginResultCanceledEvent) {
-            return Result.Canceled.create();
-        } else if (loginResultEvent instanceof LoginSuccessEvent) {
-            return Result.Success.create(((LoginSuccessEvent) loginResultEvent).loginResult());
-        }
-        throw new IllegalArgumentException("Unsupported event: " + loginResultEvent.getClass());
-    }
-
-    // Missing you here, Kotlin. :sigh:
-    interface Result {
-
-        @AutoValue
-        abstract class Canceled
-            implements Result {
-
-            static Result create() {
-                return new AutoValue_SignInActivity_Result_Canceled();
-            }
-        }
-
-        @AutoValue
-        abstract class Success
-            implements Result {
-
-            static Result create(LoginResult loginResult) {
-                return new AutoValue_SignInActivity_Result_Success(loginResult);
-            }
-
-            abstract LoginResult loginResult();
-        }
-
-        @AutoValue
-        abstract class Failure
-            implements Result {
-
-            static Result create(Throwable error) {
-                return new AutoValue_SignInActivity_Result_Failure(error);
-            }
-
-            abstract Throwable error();
-        }
     }
 }

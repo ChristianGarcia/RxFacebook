@@ -38,7 +38,8 @@ public class MainActivity
     extends AppCompatActivity {
 
     private static final List<Pair<String, Class<? extends Activity>>> SECTIONS = Arrays.asList(
-        Pair.create("Get Access Token", SignInActivity.class)
+        Pair.create("Get Access Token (Sign in)", SignInActivity.class),
+        Pair.create("Me Request", MeRequestActivity.class)
     );
 
     @BindView(R.id.sectionsView)

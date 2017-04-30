@@ -67,4 +67,7 @@ dependencies {
     annotationProcessor rootProject.ext.autoValue
     provided rootProject.ext.autoValueAnnotations
 
+    compile rootProject.ext.timber
+
+
 }
