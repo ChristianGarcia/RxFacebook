@@ -39,7 +39,7 @@ public class MeRequestActivity
         setContentView(R.layout.activity_me_request);
         ButterKnife.bind(this);
 
-        Bundle params = new Bundle();
+        final Bundle params = new Bundle();
         params.putString("fields", "id, birthday, first_name, gender, last_name, link, location, locale, name, timezone, updated_time, email");
 
         RxFacebook.graphRequest(AccessToken.getCurrentAccessToken(), "me", params, HttpMethod.GET)

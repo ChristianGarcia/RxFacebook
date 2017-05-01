@@ -28,7 +28,7 @@ import com.christiangp.rxfacebook.RxFacebook;
 import com.facebook.AccessToken;
 import com.jakewharton.rxbinding2.view.RxView;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -66,7 +66,7 @@ public class SignInActivity
             RxView.clicks(facebookButton)
                   .throttleLast(1, TimeUnit.SECONDS)
                   .observeOn(AndroidSchedulers.mainThread())
-                  .flatMap(__ -> RxFacebook.logIn(this, Arrays.asList("email")))
+                  .flatMap(__ -> RxFacebook.logIn(this, Collections.singletonList("email")))
                   .map(SignInMapper::mapToResult)
                   .onErrorReturn(SignInResult.Failure::create)
                   .subscribe(
