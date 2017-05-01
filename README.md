@@ -14,7 +14,7 @@ compile 'com.christiangp:RxFacebook:<latest-version>'
 
 ### Signing in
 
-Subscribe to `RxFacebook.login()`.
+Subscribe to `RxFacebook.logIn()`.
 
 Make sure `RxFacebook.logIn()` is done in the UI Thread (typically by observing on `mainThread()` before it)
 
@@ -23,20 +23,20 @@ Remember to dispose the subscription `Disposable` once you're done with it (typi
 
 ```java
 Disposable loginDisposable =
-    RxFacebook.logIn(activity, permissions)
-              .subscribe(
-                  result -> {
-                      if (result instanceof LoginResultCanceledEvent) {
-                          //Do something on canceled
-                      } else if (result instanceof LoginResultSuccessfulEvent) {
-                          final LoginResult loginResult = ((LoginResultSuccessfulEvent) result).loginResult();
-                          //Do something with loginResult on success
-                      }
-                  },
-                  throwable -> {
-                      //Do something on error
-                  }
-              );
+  RxFacebook.logIn(activity, permissions)
+            .subscribe(
+              result -> {
+                if (result instanceof LoginResultCanceledEvent) {
+                  //Do something on canceled
+                } else if (result instanceof LoginResultSuccessfulEvent) {
+                  final LoginResult loginResult = ((LoginResultSuccessfulEvent) result).loginResult();
+                  //Do something with loginResult on success
+                }
+              },
+              throwable -> {
+                //Do something on error
+              }
+            );
 ```
 
 ### Graph API requests
@@ -44,7 +44,9 @@ Subscribe to `RxFacebook.graphRequest()`
 
 ```java
 final Bundle params = new Bundle();
-params.putString("fields", "id, birthday, first_name, gender, last_name, link, location, locale, name, timezone, updated_time, email");
+params.putString("fields", 
+  "id, birthday, first_name, gender, last_name, link, location, locale, name, timezone, updated_time, email"
+);
 
 RxFacebook.graphRequest(AccessToken.getCurrentAccessToken(), "me", params, HttpMethod.GET)
           .subscribe(graphResponse -> {
