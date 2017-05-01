@@ -53,7 +53,7 @@ params.putString("fields",
 
 RxFacebook.graphRequest(AccessToken.getCurrentAccessToken(), "me", params, HttpMethod.GET)
           .subscribe(graphResponse -> {
-              // Do somehitng with graphResponse
+              // Do something with graphResponse
           });
 ```
 
