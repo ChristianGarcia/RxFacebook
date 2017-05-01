@@ -1,5 +1,6 @@
 # RxFacebook
 [![Build Status](https://travis-ci.org/ChristianGarcia/RxFacebook.svg?branch=master)](https://travis-ci.org/ChristianGarcia/RxFacebook)
+[![](https://img.shields.io/maven-central/v/com.christiangp/RxFacebook.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.christiangp%22%20a%3A%22RxFacebook%22)
 
 RxJava Binding APIs for Facebook's Android SDK.
 
