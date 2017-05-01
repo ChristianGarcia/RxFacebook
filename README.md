@@ -50,12 +50,7 @@ params.putString("fields",
 
 RxFacebook.graphRequest(AccessToken.getCurrentAccessToken(), "me", params, HttpMethod.GET)
           .subscribe(graphResponse -> {
-              if (graphResponse.getError() != null) {
-                  rawResponseView.setText(graphResponse.getError()
-                                                       .getErrorMessage());
-              } else {
-                  rawResponseView.setText(graphResponse.getRawResponse());
-              }
+              // Do somehitng with graphResponse
           });
 ```
 
