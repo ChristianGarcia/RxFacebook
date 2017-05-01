@@ -21,6 +21,8 @@ Make sure `RxFacebook.logIn()` is done in the UI Thread (typically by observing 
 The generated `Observable` holds a strong reference to the host `Activity`. 
 Remember to dispose the subscription `Disposable` once you're done with it (typically in the `onDestroy()` method) to free this reference.
 
+That's it. No need to handle any `onActivityResult()`.
+
 ```java
 Disposable loginDisposable =
   RxFacebook.logIn(activity, permissions)
