@@ -45,6 +45,16 @@ public final class RxFacebook {
         return new LoginResultEventObservable(activity, permissions);
     }
 
+    /**
+     * Create an observable which emits {@link GraphResponse}s as events.
+     * <p>
+     * Check the official <a href="https://developers.facebook.com/docs/graph-api/reference">reference documentation</a> for each request's HTTP method and parameters.
+     *
+     * @param accessToken An access token obtained with the necessary permissions for this Graph call
+     * @param graphPath   HTTP path
+     * @param parameters  Optional parameters
+     * @param httpMethod  HTTP Method
+     */
     @NonNull
     public static Observable<GraphResponse> graphRequest(
         @NonNull AccessToken accessToken,
